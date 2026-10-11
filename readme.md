@@ -76,3 +76,42 @@ Registrar un nuevo usuario.
 Iniciar sesión con tus credenciales.
 
 Acceder a la ruta protegida de tareas (GET /tareas), que descargará y mostrará el código HTML de bienvenida proporcionado por el servidor.
+
+---
+
+## 📌 Nota sobre el Despliegue y GitHub Pages
+
+Es importante aclarar que este proyecto **no puede ser alojado en GitHub Pages**. Los motivos técnicos son los siguientes:
+
+1. **Naturaleza Estática vs. Backend:** GitHub Pages es un servicio diseñado exclusivamente para alojar sitios web estáticos (HTML, CSS y JS). Este proyecto cuenta con un servidor backend desarrollado en **Python (Flask)** que requiere ejecución en tiempo de servidor para procesar las peticiones HTTP de los endpoints (`/registro`, `/login`, `/tareas`).
+2. **Persistencia Local:** La aplicación utiliza una base de datos local basada en **SQLite** (`database.db`), la cual requiere acceso al sistema de archivos del servidor para realizar las operaciones de lectura y escritura.
+3. **Arquitectura Cliente-Servidor:** El sistema depende de la interacción en tiempo real entre un servidor activo por terminal y un cliente de consola independiente (`cliente.py`) que se comunica mediante solicitudes HTTP locales. Por lo tanto, el entorno de ejecución debe ser local.
+
+## Respuestas
+
+### 1. ¿Por qué hashear contraseñas?
+
+Nunca debemos guardar las contraseñas de los usuarios tal cual las escriben (en texto plano) en la base de datos. Si alguien logra entrar o robar el archivo, vería todas las claves.
+Hashear la contraseña significa pasarla por una función matemática que la convierte en un código cifrado e irreversible (un hash). Si la base de datos se filtra, los atacantes solo van a ver una cadena ilegible y no las contraseñas reales. Además, al usar herramientas como `werkzeug.security`, nos aseguramos de aplicar buenas prácticas de seguridad de forma sencilla.
+
+### 2. Ventajas de usar SQLite en este proyecto
+
+SQLite se utiliza porque es la opción más práctica y limpia para este tipo de proyectos por varias razones:
+
+- **No necesita instalación:** A diferencia de otras bases de datos más grandes (como MySQL o PostgreSQL), SQLite no requiere instalar ni configurar ningún servidor externo.
+- **Todo en un archivo:** Guarda absolutamente toda la información en un único archivo local (`database.db`), lo que hace que el proyecto sea ultra fácil de mover, compartir y probar en cualquier computadora.
+- **Viene con Python:** Al estar integrado nativamente a través de la librería `sqlite3`, no necesitamos descargar conectores raros ni dependencias pesadas para empezar a usarlo.
+
+## Capturas del sistema funcionando:
+
+Se visualiza en la parte susperior el cliente ejecutandose y en la inferior el servidor ejecutandose
+![alt text](image.png)
+
+Intento de registro de un usuario preexistente
+![alt text](image-1.png)
+
+Inicio de sesión exitoso
+![alt text](image-2.png)
+
+Si bien en el inicio de sesión devuelve un HTML aquí podemos visualizar como se vería en caso de renderizarse:
+![alt text](image-3.png)

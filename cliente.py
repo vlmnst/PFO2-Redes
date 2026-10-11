@@ -4,7 +4,7 @@ BASE_URL = "http://localhost:5000"
 
 def mostrar_menu():
     print("\n==============================")
-    print("   SISTEMA DE GESTIÓN DE TAREAS")
+    print("SISTEMA DE GESTIÓN DE TAREAS")
     print("==============================")
     print("1. Registrar nuevo usuario")
     print("2. Iniciar sesión")
